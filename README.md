@@ -1,2 +1,1 @@
 "# django-blog-app" 
-"# djangoblogapp" 
