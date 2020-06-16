@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="col-md-40 offset-md-3">
+        
+            <div class="col-lg-8">
+                <h3>Makaleler</h3>
+                <hr>
+            </div>
+            <form class="sm-form active-blue-2 mb-0">
+                {% csrf_token %}
+                <div class="col-lg-8">
+                    <input name = "keyword" class="form-control" type="text" placeholder="Makalelerde Ara" aria-label="Ara">
+                    <button style = "float: right;" class="btn btn-outline-primary btn-rounded btn-md my-1" type="submit">Ara</button>
+                </div>
+            </form>
+            {% if articles %}
+                {% for article in articles %}
+                        <!-- Post Content Column -->
+                        <div class="col-lg-8">            
+                            <!-- Title -->
+                            <h3 class="mt-4"><a href="{% url 'article:detail' article.id %}">{{article.title}}</a></h3>
+                            <!-- Author -->
+                            <p class="lead">
+                            Yazar : 
+                            {{article.author}}
+                            </p>
+                            <hr>
+                            <!-- Date/Time -->
+                            <p><a href="{% url 'article:detail' article.id %}">{{article.created_date}}</a></p>
+                            <hr>
+                            <!-- Preview Image -->
+                            {% if article.article_image %}
+                            <a href="{% url 'article:detail' article.id %}"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt=""></a>
+                            {% endif %}
+                            <hr>
+                            <!-- Post Content -->
+                            <p class="lead">
+                                {{article.content|safe|truncatewords:10}}
+                            </p>
+                            <a class = "btn btn-primary" style = "float : right;" href="{% url 'article:detail' article.id %}">Devamını Oku>>></a>
+                            <br>
+                            <hr>
+                        </div>                                                   
+                {% endfor %}
+            {% else %}
+            
+            
+            <div class="col-lg-8">
+            
+                <div class = "alert alert-danger"
+                style = "margin-top : 100px; margin-bottom : 100px;">
+                Makale Bulunamadı
+                </div>
+          
+            </div>
+            {% endif %}
+       
+    </div>
+{% endblock  %}

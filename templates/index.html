@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class = "jumbotron text-center">
+    <h3>Deneme Amaçlı Blog'a Hoşgeldiniz.</h3>
+    <p>Bu Blog Django Framework ile Python kodları kullanılarak yazılmıştır. </p>
+
+    <p>
+        {% if request.user.is_authenticated %}
+            Hoşgeldin , {{request.user.username}}
+        {% else %}
+            Henüz Kullanıcı Girişi Yapılmamış
+        {% endif %}
+    </p>
+</div>
+{% endblock  %}
